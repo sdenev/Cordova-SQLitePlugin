@@ -144,8 +144,12 @@ static int base64_encode_blockend(char* code_out,
         [openDBs retain];
 #endif
 
-        NSString *docs = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex: 0];
-        NSLog(@"Detected docs path: %@", docs);
+	NSString *docs = @"";
+        if((BOOL)[[NSBundle mainBundle] objectForInfoDictionaryKey:@"SQLitePlugin.use_resourcePath"]) {
+            docs = [[NSBundle mainBundle] resourcePath];
+        } else {
+            docs = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex: 0];
+        }
         [self setAppDocsPath:docs];
     }
     return self;

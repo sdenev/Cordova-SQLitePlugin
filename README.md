@@ -1,3 +1,5 @@
+**CAUTION: This fork explicitly sets the sqlite file in iOS to be in the Resources directory!!!!**
+
 # Cordova/PhoneGap SQLitePlugin
 
 Native interface to sqlite in a Cordova/PhoneGap plugin for Android & iOS, working to follow the HTML5 Web SQL API as close as possible.

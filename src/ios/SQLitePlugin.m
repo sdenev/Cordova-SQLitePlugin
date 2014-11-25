@@ -144,12 +144,8 @@ static int base64_encode_blockend(char* code_out,
         [openDBs retain];
 #endif
 
-	NSString *docs = @"";
-        if((BOOL)[[NSBundle mainBundle] objectForInfoDictionaryKey:@"SQLitePlugin.use_resourcePath"]) {
-            docs = [[NSBundle mainBundle] resourcePath];
-        } else {
-            docs = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex: 0];
-        }
+        NSString *docs = @"";
+        docs = [[NSBundle mainBundle] resourcePath];
         [self setAppDocsPath:docs];
     }
     return self;
@@ -185,7 +181,7 @@ static int base64_encode_blockend(char* code_out,
             // NSLog(@"using db name: %@", dbname);
             sqlite3 *db;
 
-            if (sqlite3_open(name, &db) != SQLITE_OK) {
+            if (sqlite3_open_v2(name, &db, SQLITE_OPEN_READONLY, NULL) != SQLITE_OK) {
                 pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Unable to open DB"];
                 return;
             }
